@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import controller.hirschberg_controller as controller
 
 app = FastAPI()
 
