@@ -1,14 +1,23 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 import controller.hirschberg_controller as controller
 
 app = FastAPI()
 
 
-@app.post('/check/')
-async def hirschberg_check(edit_params):
-    s_x = edit_params['s1']
-    s_y = edit_params['s2']
-    alphabet = edit_params['alpha']
-    gap_cost = edit_params['gap']
+class EditParams(BaseModel):
+    s1: str
+    s2: str
+    alpha: dict
+    gap: int
 
-    return controller.hirschberg(s_x, s_y, alphabet, gap_cost)
+
+@app.post('/check/')
+async def hirschberg_check(edit_params: EditParams):
+    print('Post params: ',  edit_params)
+    s_x = edit_params.s1
+    s_y = edit_params.s2
+    alphabet = edit_params.alpha
+    gap_cost = edit_params.gap
+
+    return controller.hirschberg_controller(s_x, s_y, alphabet, gap_cost)
