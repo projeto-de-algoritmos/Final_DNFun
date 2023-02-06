@@ -1,0 +1,20 @@
+{
+  "s1": "ACTGCATGCAGAGGCTGA",
+  "s2": "ACCTGACTGAACAC",
+  "gap": -4,
+  "alpha": {
+    "A":{
+      "C": -2,
+      "T": -1,
+      "G": 0
+    },
+    "C":{
+      "T": -7,
+      "G": -2
+    },
+    "T": {
+      "G": -5
+    },
+    "G": {}
+  }
+}

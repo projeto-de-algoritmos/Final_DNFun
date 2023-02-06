@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import controller.hirschberg_controller as controller
 
 app = FastAPI()
 
-
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_headers=["*"]
+        )
 class EditParams(BaseModel):
     s1: str
     s2: str
