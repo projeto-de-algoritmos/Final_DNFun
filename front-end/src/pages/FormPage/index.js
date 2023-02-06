@@ -6,17 +6,27 @@ import { useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import axios from "axios"
+import { purple } from '@mui/material/colors';
 
 const useStyles = styled(({ theme }) => ({
     root: {
         flexGrow: 1,
     },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
+    button: {
+        backgroundColor: '#000000 !important',
+        color: '#000000 !important'
+    }
+    
 }));
+
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: purple[500],
+//     backgroundColor: purple[500],
+//     borderColor: '#0063cc',
+//     '&:hover': {
+//       backgroundColor: purple[700],
+//     },
+//   }));
 
 const FormPage = () => {
     const classes = useStyles();
@@ -54,7 +64,7 @@ const FormPage = () => {
         });
 
         axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-        axios.post('http://127.0.0.1:8000/check/', {
+        axios.post('http://localhost:8000/check/', {
             s1: string1,
             s2: string2,
             alpha: data,
@@ -80,6 +90,7 @@ const FormPage = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
+
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
@@ -120,19 +131,21 @@ const FormPage = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Grid container spacing={2} justify='flex-end'>
+
+            <Grid container spacing={2} justify-items='flex-end'>
                 <Grid item>
-                    <Button variant='outlined' onClick={handleClickLimpar}>
+                    <Button variant='contained' color="primary" onClick={handleClickLimpar}>
                         Limpar
                     </Button>
                 </Grid>
 
-                <Grid item>
-                    <Button variant='outlined' onClick={handleClickSalvar} color='primary'>
+                <Grid item justify='flex-end'>
+                    <Button  variant="contained" color="primary" onClick={handleClickSalvar} >
                         Salvar
                     </Button>
                 </Grid>
             </Grid>
+
         </div>
     );
 };
