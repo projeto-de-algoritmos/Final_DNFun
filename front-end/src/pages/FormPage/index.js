@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-
+import axios from "axios"
 
 const useStyles = styled(({ theme }) => ({
     root: {
@@ -21,10 +21,8 @@ const useStyles = styled(({ theme }) => ({
 const FormPage = () => {
     const classes = useStyles();
     const location = useLocation();
-    const { text } = location.state
-    const [valores, setValores] = useState([[]]);
+    const { text, string1, string2 } = location.state
     const [matrix, setMatrix] = useState(Array.from({ length: text.length }, () => Array.from({ length: text.length }, () => ({ value: 0 }))))
-
 
     const handleChange = (event, j, i) => {
         let newMatrix = matrix.slice();
@@ -34,7 +32,7 @@ const FormPage = () => {
 
     const handleClickSalvar = () => {
         let data = {};
-        text.forEach((letra,i) => {
+        text.forEach((letra, i) => {
             text.forEach((elemento, j) => {
                 if (i != j) {
                     var object = {}
@@ -54,9 +52,20 @@ const FormPage = () => {
 
             })
         });
-        console.log(data)
-        
 
+        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+        axios.post('http://127.0.0.1:8000/check/', {
+            s1: string1,
+            s2: string2,
+            alpha: data,
+            gap: -2,
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     };
 
     const handleClickLimpar = (event) => {
@@ -67,7 +76,7 @@ const FormPage = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
-                        Home Page
+                        Form Page
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -87,23 +96,23 @@ const FormPage = () => {
                                 <TableCell>{letra}</TableCell>
                                 {text.map((c, j) => (
                                     <TableCell key={j}>
-                                        {i==j ? 
+                                        {i == j ?
                                             <TextField
-                                            id='outlined-basic'
-                                            variant='outlined'
-                                            type="number"
-                                            disabled
-                                            defaultValue={0}
+                                                id='outlined-basic'
+                                                variant='outlined'
+                                                type="number"
+                                                disabled
+                                                defaultValue={0}
                                             />
                                             :
                                             <TextField
-                                            id='outlined-basic'
-                                            variant='outlined'
-                                            type="number"
-                                            onChange={(e) => { handleChange(e, j, i) }}
+                                                id='outlined-basic'
+                                                variant='outlined'
+                                                type="number"
+                                                onChange={(e) => { handleChange(e, j, i) }}
                                             />
                                         }
-                                        
+
                                     </TableCell>
                                 ))}
                             </TableRow>

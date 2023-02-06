@@ -25,6 +25,8 @@ const useStyles = styled(({ theme }) => ({
 
 const HomePage = () => {
   const [text, setText] = useState("");
+  const [string1, setString1] = useState("");
+  const [string2, setString2] = useState("");
   const classes = useStyles();
   const navigate = useNavigate()
 
@@ -35,7 +37,7 @@ const HomePage = () => {
   const handleConfirm = () => {
     let arrayText = text.split("");
     console.log(arrayText);
-    navigate("/form", { state: { text: arrayText} });
+    navigate("/form", { state: { text: arrayText, string1: string1, string2: string2 } });
 
   };
 
@@ -56,7 +58,7 @@ const HomePage = () => {
       <TextField
         id="standard-full-width"
         label="Alfabeto"
-        style={{ margin: 8}}
+        style={{ margin: 8 }}
         placeholder="Insira o seu alfabeto (2 a 6 letras)"
         margin="normal"
         InputLabelProps={{
@@ -64,6 +66,34 @@ const HomePage = () => {
         }}
         value={text}
         onChange={handleTextChange}
+        className={classes.textField}
+      />
+
+      <TextField
+        id="standard-full-width"
+        label="Texto para comparar 1"
+        style={{ margin: 8 }}
+        placeholder="Insira o seu texto com letras do alfabeto"
+        margin="normal"
+        InputLabelProps={{
+          shrink: true
+        }}
+        value={string1}
+        onChange={(e) => setString1(e.target.value)}
+        className={classes.textField}
+      />
+
+      <TextField
+        id="standard-full-width"
+        label="Texto para comparar 2"
+        style={{ margin: 8}}
+        placeholder="Insira o seu texto com letras do alfabeto"
+        margin="normal"
+        InputLabelProps={{
+          shrink: true
+        }}
+        value={string2}
+        onChange={(e) => setString2(e.target.value)}
         className={classes.textField}
       />
       <br />
