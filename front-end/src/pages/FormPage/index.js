@@ -47,18 +47,22 @@ const FormPage = () => {
                 if (i != j) {
                     var key = text[j]
                     var elemento = text[i]
-                    data[elemento][key] = value;
+                    data[elemento][key] = Number.parseInt(value);
                 }
 
             })
         });
 
-        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
         axios.post('http://127.0.0.1:8000/check/', {
             s1: string1,
             s2: string2,
             alpha: data,
             gap: -2,
+        },
+        {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }       
         })
             .then(function (response) {
                 console.log(response);
