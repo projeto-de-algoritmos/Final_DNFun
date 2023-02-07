@@ -73,7 +73,7 @@ const FormPage = () => {
                 }
             })
             .then(function (response) {
-                navigate("/result", { state: { response: response.data } });
+                navigate("/result", { state: { response: response.data.ans } });
             })
             .catch(function (error) {
                 console.error(error);

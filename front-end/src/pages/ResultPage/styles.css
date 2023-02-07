@@ -1,0 +1,17 @@
+.string-div {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+.edit-default {
+  font-color: black;
+}
+
+.edit-good {
+  font-color: blue;
+}
+
+.edit-change {
+  font-color: red;
+}
