@@ -37,7 +37,7 @@ const HomePage = () => {
   const handleConfirm = () => {
     let arrayText = text.split("");
     console.log(arrayText);
-    navigate("/form", { state: { text: arrayText, string1: string1, string2: string2 } });
+    navigate("/form", { state: { text: arrayText, string1: string1, string2: string2, gap: 0 } });
 
   };
 

@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage/>} />
           <Route path='/form' element={<FormPage/>} />
+          <Route path='/result' element={<FormPage/>} />
         </Routes>
       </BrowserRouter>
     </div>

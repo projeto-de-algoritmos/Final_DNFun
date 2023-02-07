@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import axios from "axios"
@@ -16,7 +16,7 @@ const useStyles = styled(({ theme }) => ({
         backgroundColor: '#000000 !important',
         color: '#000000 !important'
     }
-    
+
 }));
 
 // const ColorButton = styled(Button)(({ theme }) => ({
@@ -31,8 +31,9 @@ const useStyles = styled(({ theme }) => ({
 const FormPage = () => {
     const classes = useStyles();
     const location = useLocation();
-    const { text, string1, string2 } = location.state
+    const { text, string1, string2, gap } = location.state
     const [matrix, setMatrix] = useState(Array.from({ length: text.length }, () => Array.from({ length: text.length }, () => ({ value: 0 }))))
+    const navigate = useNavigate()
 
     const handleChange = (event, j, i) => {
         let newMatrix = matrix.slice();
@@ -44,22 +45,18 @@ const FormPage = () => {
         let data = {};
         text.forEach((letra, i) => {
             text.forEach((elemento, j) => {
-                if (i != j) {
-                    var object = {}
-                    object[elemento] = 0
-                    data[letra] = { ...data[letra], ...object };
-                }
+                var object = {}
+                object[elemento] = 0
+                data[letra] = { ...data[letra], ...object };
             })
         })
 
         matrix.forEach((element, i) => {
             element.forEach((value, j) => {
-                if (i != j) {
-                    var key = text[j]
-                    var elemento = text[i]
-                    data[elemento][key] = Number.parseInt(value);
-                }
-
+                console.log(typeof (value.value))
+                var key = text[j]
+                var elemento = text[i]
+                data[elemento][key] = Number.parseInt(value.value);
             })
         });
 
@@ -68,15 +65,15 @@ const FormPage = () => {
             s1: string1,
             s2: string2,
             alpha: data,
-            gap: -2,
+            gap: gap,
         },
-        {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        }       
-        })
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
+            })
             .then(function (response) {
-                console.log(response);
+                navigate("/result", { state: { response: response.data } });
             })
             .catch(function (error) {
                 console.error(error);
@@ -112,23 +109,12 @@ const FormPage = () => {
                                 <TableCell>{letra}</TableCell>
                                 {text.map((c, j) => (
                                     <TableCell key={j}>
-                                        {i == j ?
-                                            <TextField
-                                                id='outlined-basic'
-                                                variant='outlined'
-                                                type="number"
-                                                disabled
-                                                defaultValue={0}
-                                            />
-                                            :
-                                            <TextField
-                                                id='outlined-basic'
-                                                variant='outlined'
-                                                type="number"
-                                                onChange={(e) => { handleChange(e, j, i) }}
-                                            />
-                                        }
-
+                                        <TextField
+                                            id='outlined-basic'
+                                            variant='outlined'
+                                            type="number"
+                                            onChange={(e) => { handleChange(e, j, i) }}
+                                        />
                                     </TableCell>
                                 ))}
                             </TableRow>
@@ -145,7 +131,7 @@ const FormPage = () => {
                 </Grid>
 
                 <Grid item justify='flex-end'>
-                    <Button  variant="contained" color="primary" onClick={handleClickSalvar} >
+                    <Button variant="contained" color="primary" onClick={handleClickSalvar} >
                         Salvar
                     </Button>
                 </Grid>
