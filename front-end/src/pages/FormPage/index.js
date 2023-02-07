@@ -57,7 +57,7 @@ const FormPage = () => {
                 if (i != j) {
                     var key = text[j]
                     var elemento = text[i]
-                    data[elemento][key] = value;
+                    data[elemento][key] = Number.parseInt(value);
                 }
 
             })
@@ -69,6 +69,11 @@ const FormPage = () => {
             s2: string2,
             alpha: data,
             gap: -2,
+        },
+        {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }       
         })
             .then(function (response) {
                 console.log(response);
