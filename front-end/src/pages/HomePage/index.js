@@ -48,6 +48,7 @@ const darkTheme = createTheme({
 
 const HomePage = () => {
   const [text, setText] = useState("");
+  const [gap, setGap] = useState(0);
   const [string1, setString1] = useState("");
   const [string2, setString2] = useState("");
   const [error, setError] = useState(false);
@@ -60,6 +61,11 @@ const HomePage = () => {
   const handleTextChange = event => {
     setText(event.target.value);
   };
+
+  const handleGapChange = event => {
+    setGap(event.target.value);
+  };
+  
 
   const handleString2Change = event => {
     setString2(event.target.value);
@@ -93,7 +99,7 @@ const HomePage = () => {
     } else {
       let arrayText = text.split("");
       console.log(arrayText);
-      navigate("/form", { state: { text: arrayText, string1: string1, string2: string2, gap: 0 } });
+      navigate("/form", { state: { text: arrayText, string1: string1, string2: string2, gap: gap } });
     }
   };
 
@@ -110,7 +116,16 @@ const HomePage = () => {
       </ThemeProvider>
       <br />
       <Typography variant="h5" gutterBottom>
-        Seja Bem vindo ao App, Informe o se alfabeto para que obtenha a sua resposta
+        Seja Bem vindo ao App!!
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        Essa é uma implementação do Algoritmo de Hischberg para edição de strings usando DP e dividir e conquistar.
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        O objetivo é ter o maior custo de edição, portanto para favorecer a troca de uma letra utilize um valor positivo.
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+      Informe o seu Alfabeto e os textos para comparação.
       </Typography>
       <br />
       <Grid container direction="column" justifyContent="center" alignItems="center" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -150,6 +165,19 @@ const HomePage = () => {
           }}
           value={string2}
           onChange={(e) => handleString2Change(e)}
+        />
+        <TextField
+          id="standard-full-width"
+          label="Gap"
+          margin='normal'
+          type="number"
+          defaultValue={0}
+          placeholder="Informe o Gap"
+          InputLabelProps={{
+            shrink: true
+          }}
+          value={gap}
+          onChange={(e) => handleGapChange(e)}
         />
         <ColorButton variant="contained" color="primary" onClick={handleConfirm}>
           Confirmar
