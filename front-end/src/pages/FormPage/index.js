@@ -6,18 +6,41 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import axios from "axios"
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { purple } from '@mui/material/colors';
 
 const useStyles = styled(({ theme }) => ({
     root: {
         flexGrow: 1,
     },
-    button: {
-        backgroundColor: '#000000 !important',
-        color: '#000000 !important'
-    }
-
 }));
+
+const ColorButton = styled(Button)({
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: 'black',
+    borderColor: 'black',
+    marginRight: "5vw",
+    marginTop: 10,
+    '&:hover': {
+      backgroundColor: '#FFFF00',
+      borderColor: '#FFFF00',
+      boxShadow: 'none',
+    },
+  });
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#1976d2',
+        },
+    },
+});
 
 // const ColorButton = styled(Button)(({ theme }) => ({
 //     color: purple[500],
@@ -85,13 +108,15 @@ const FormPage = () => {
     };
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Form Page
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <ThemeProvider theme={darkTheme}>
+                <AppBar className={classes.appBar} position="static">
+                    <Toolbar>
+                        <Typography variant="h6">
+                            Form Page
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </ThemeProvider>
 
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
@@ -113,6 +138,7 @@ const FormPage = () => {
                                             id='outlined-basic'
                                             variant='outlined'
                                             type="number"
+                                            defaultValue={0}
                                             onChange={(e) => { handleChange(e, j, i) }}
                                         />
                                     </TableCell>
@@ -123,21 +149,23 @@ const FormPage = () => {
                 </Table>
             </TableContainer>
 
-            <Grid container spacing={2} justify-items='flex-end'>
+            <Grid container direction="row" justifyContent="flex-end" spacing={2}>
                 <Grid item>
-                    <Button variant='contained' color="primary" onClick={handleClickLimpar}>
+                    <ColorButton variant='contained' color="primary" onClick={handleClickLimpar}>
                         Limpar
-                    </Button>
+                    </ColorButton>
                 </Grid>
 
                 <Grid item justify='flex-end'>
-                    <Button variant="contained" color="primary" onClick={handleClickSalvar} >
+                    <ColorButton variant="contained" color="primary" onClick={handleClickSalvar} >
                         Salvar
-                    </Button>
+                    </ColorButton>
                 </Grid>
             </Grid>
 
+
         </div>
+
     );
 };
 
