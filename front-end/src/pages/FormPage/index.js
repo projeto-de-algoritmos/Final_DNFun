@@ -58,6 +58,8 @@ const FormPage = () => {
     const [matrix, setMatrix] = useState(Array.from({ length: text.length }, () => Array.from({ length: text.length }, () => ({ value: 0 }))))
     const navigate = useNavigate()
 
+    console.log(gap);
+
     const handleChange = (event, j, i) => {
         let newMatrix = matrix.slice();
         newMatrix[i][j].value = event.target.value;

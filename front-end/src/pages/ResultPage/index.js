@@ -30,7 +30,7 @@ const ResultPage = () => {
     setFlags(s1.split('').map((val, ind) => {
       return (val === '-' || s2[ind] === '-') ? true : val === s2[ind];
     }));
-  }, [flags])
+  }, [])
 
 
 
